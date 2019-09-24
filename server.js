@@ -7,6 +7,9 @@ const app = express();
 //Connect Database
 connectDB();
 
+//Init Middleware - replaces bodyparser
+app.use(express.json({ extended: false }));
+
 app.get("/", (req, res) => res.send("API running"));
 
 const usersRoute = require("./routes/api/users");
