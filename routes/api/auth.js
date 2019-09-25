@@ -10,7 +10,7 @@ const User = require("../../models/User");
 
 //@route    GET api/auth
 //@desc     Get current user
-//@access   Public
+//@access   Private
 router.get("/", auth, async (req, res) => {
     try {
         // get current user without password

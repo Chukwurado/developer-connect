@@ -63,6 +63,7 @@ router.post(
             await user.save();
 
             // Return jsonwebtoken
+            //mongoose allows for user.id instead of user._id
             const payload = {
                 user: {
                     id: user.id
