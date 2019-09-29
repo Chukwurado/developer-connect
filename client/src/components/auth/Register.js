@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 
 import axios from "axios";
 
@@ -24,25 +25,7 @@ const Register = props => {
         if (password !== password2) {
             props.setAlert("Passwords do not match", "danger");
         } else {
-            const newUser = {
-                name,
-                email,
-                password
-            };
-
-            try {
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                };
-                const body = JSON.stringify(newUser);
-
-                const res = await axios.post("/api/users", body, config);
-                console.log(res.data);
-            } catch (err) {
-                console.error(err.response.data);
-            }
+            props.register({ name, email, password });
         }
     };
     return (
@@ -59,7 +42,6 @@ const Register = props => {
                         type="text"
                         placeholder="Name"
                         name="name"
-                        required
                     />
                 </div>
                 <div className="form-group">
@@ -82,7 +64,6 @@ const Register = props => {
                         type="password"
                         placeholder="Password"
                         name="password"
-                        minLength="6"
                     />
                 </div>
                 <div className="form-group">
@@ -92,7 +73,6 @@ const Register = props => {
                         type="password"
                         placeholder="Confirm Password"
                         name="password2"
-                        minLength="6"
                     />
                 </div>
                 <input
@@ -109,10 +89,11 @@ const Register = props => {
 };
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
 };
 
 export default connect(
     null,
-    { setAlert }
+    { setAlert, register }
 )(Register);
