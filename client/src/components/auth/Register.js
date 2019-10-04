@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 
-import axios from "axios";
-
 const Register = props => {
     const [formData, setFormData] = useState({
         name: "",

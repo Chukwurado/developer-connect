@@ -1,0 +1,14 @@
+import React, { Fragment } from "react";
+
+const Spinner = () => {
+    return (
+        <Fragment>
+            <i
+                className="fa fa-circle-o-notch fa-spin"
+                style={{ fontSize: "24px", margin: "auton", display: "block" }}
+            ></i>
+        </Fragment>
+    );
+};
+
+export default Spinner;
