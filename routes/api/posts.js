@@ -16,7 +16,7 @@ router.post(
     [
         auth,
         [
-            check("text", "Test is required")
+            check("text", "Text is required")
                 .not()
                 .isEmpty()
         ]
@@ -86,16 +86,17 @@ router.delete("/:id", auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         //Check is user owns the post
+        if (!post) {
+            return res.status(404).json({ msg: "Post not found" });
+        }
+
+        //Check user
         if (post.user.toString() !== req.user.id) {
             return res.status(401).json({ msg: "User not authorized" });
         }
         await post.remove();
 
         res.json({ msg: "Post removed" });
-        if (!post) {
-            return res.status(404).json({ msg: "Post not found" });
-        }
-        res.json(post);
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({ msg: "Post not found" });
